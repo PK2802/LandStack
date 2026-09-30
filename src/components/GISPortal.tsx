@@ -71,6 +71,10 @@ export const GISPortal: React.FC<GISPortalProps> = ({
     );
   }, [searchQuery, currentPilotParcels]);
 
+  // Base Map Tile State (100% Free - No API Key Required)
+  const [baseMapType, setBaseMapType] = useState<'osm' | 'satellite' | 'gray'>('osm');
+  const baseTileLayerRef = useRef<L.TileLayer | null>(null);
+
   // Initialize Leaflet Map
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -84,15 +88,9 @@ export const GISPortal: React.FC<GISPortalProps> = ({
         attributionControl: false,
       });
 
-      // CartoDB Positron / OSM Base Tiles (Neutral, institutional high-contrast)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 20,
-        subdomains: 'abcd',
-      }).addTo(map);
-
       // Attribution
       L.control.attribution({ position: 'bottomright', prefix: false })
-        .addAttribution('&copy; OpenStreetMap &copy; CARTO | National Land Stack PostGIS')
+        .addAttribution('&copy; OpenStreetMap &copy; Esri | National Land Stack PostGIS')
         .addTo(map);
 
       layersGroupRef.current = L.featureGroup().addTo(map);
@@ -100,11 +98,34 @@ export const GISPortal: React.FC<GISPortalProps> = ({
 
       mapInstanceRef.current = map;
     }
-
-    return () => {
-      // Cleanup on unmount handled if needed
-    };
   }, []);
+
+  // Manage Dynamic Basemap Provider (No API Key Required)
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    if (baseTileLayerRef.current) {
+      map.removeLayer(baseTileLayerRef.current);
+    }
+
+    let tileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+    let maxZoom = 19;
+
+    if (baseMapType === 'satellite') {
+      tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      maxZoom = 19;
+    } else if (baseMapType === 'gray') {
+      tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+      maxZoom = 16;
+    }
+
+    baseTileLayerRef.current = L.tileLayer(tileUrl, {
+      maxZoom,
+    }).addTo(map);
+
+    baseTileLayerRef.current.bringToBack();
+  }, [baseMapType]);
 
   // Update map view on pilot change
   useEffect(() => {
@@ -382,6 +403,42 @@ export const GISPortal: React.FC<GISPortalProps> = ({
           {/* Layer Checkboxes */}
           {isLayerDrawerOpen && (
             <div className="p-3 space-y-3.5 max-h-[calc(100vh-230px)] overflow-y-auto">
+              {/* BASEMAP PROVIDER SELECTOR (NO API KEY REQUIRED) */}
+              <div className="space-y-1.5 pb-2.5 border-b border-slate-200">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
+                  <span>Base Map Tile Layer</span>
+                  <span className="text-[9px] text-emerald-700 bg-emerald-50 px-1 py-0.5 rounded-xs font-mono font-semibold border border-emerald-200">
+                    No Key Needed
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-1 bg-slate-100 p-1 rounded-sm text-[10px] font-medium">
+                  <button
+                    onClick={() => setBaseMapType('osm')}
+                    className={`py-1 px-1 rounded-xs text-center transition-colors ${
+                      baseMapType === 'osm' ? 'bg-navy-800 text-white font-bold shadow-xs' : 'text-slate-700 hover:bg-slate-200'
+                    }`}
+                  >
+                    Street Map
+                  </button>
+                  <button
+                    onClick={() => setBaseMapType('satellite')}
+                    className={`py-1 px-1 rounded-xs text-center transition-colors ${
+                      baseMapType === 'satellite' ? 'bg-navy-800 text-white font-bold shadow-xs' : 'text-slate-700 hover:bg-slate-200'
+                    }`}
+                  >
+                    Satellite
+                  </button>
+                  <button
+                    onClick={() => setBaseMapType('gray')}
+                    className={`py-1 px-1 rounded-xs text-center transition-colors ${
+                      baseMapType === 'gray' ? 'bg-navy-800 text-white font-bold shadow-xs' : 'text-slate-700 hover:bg-slate-200'
+                    }`}
+                  >
+                    Light Gray
+                  </button>
+                </div>
+              </div>
+
               {/* TIER 1: BASE LAYER */}
               <div className="space-y-1.5">
                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
