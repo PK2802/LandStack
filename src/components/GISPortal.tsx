@@ -248,6 +248,20 @@ export const GISPortal: React.FC<GISPortalProps> = ({
         className: 'parcel-label-tooltip',
       });
 
+      // Permanent Centroid Badge so every plot is instantly identifiable at a glance
+      const statusDot = parcel.titleStatus === 'CLEAR' ? '🟢' : parcel.titleStatus === 'ENCUMBERED' ? '🔴' : '🟡';
+      const shortTitle = parcel.khasraOrPlotNo.split(',')[0].replace('Survey No. ', 'Sy. ').replace('Plot No. ', 'Plot ');
+
+      L.marker(parcel.centroid, {
+        icon: L.divIcon({
+          className: 'parcel-permanent-label',
+          html: `<div style="display:flex;align-items:center;gap:3px;"><span style="font-size:8px;">${statusDot}</span><span style="font-weight:600;">${shortTitle}</span></div>`,
+          iconSize: [80, 18],
+          iconAnchor: [40, 9],
+        }),
+        interactive: false,
+      }).addTo(parcelGroup);
+
       // Click to inspect
       parcelPoly.on('click', () => {
         onSelectParcel(parcel);
@@ -378,6 +392,101 @@ export const GISPortal: React.FC<GISPortalProps> = ({
               ))}
             </div>
           )}
+          {/* Quick Search Suggestion Chips */}
+          <div className="flex items-center space-x-1.5 mt-1.5 text-[10px] text-slate-500 overflow-x-auto whitespace-nowrap py-0.5">
+            <span className="font-semibold text-slate-600">Quick:</span>
+            {selectedPilot === 'chandigarh' ? (
+              <>
+                <button
+                  onClick={() => setSearchQuery('SCO 143')}
+                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
+                >
+                  "SCO 143" (Lien)
+                </button>
+                <button
+                  onClick={() => setSearchQuery('Brar')}
+                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
+                >
+                  "Brar" (Clear)
+                </button>
+                <button
+                  onClick={() => setSearchQuery('Plot 49')}
+                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
+                >
+                  "Plot 49" (Dispute)
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => setSearchQuery('142/2')}
+                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
+                >
+                  "142/2" (Canara Bank)
+                </button>
+                <button
+                  onClick={() => setSearchQuery('Ramanathan')}
+                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
+                >
+                  "Ramanathan" (Clear)
+                </button>
+                <button
+                  onClick={() => setSearchQuery('144/A')}
+                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
+                >
+                  "144/A" (River Buffer)
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Featured Parcels Quick Bar (Top Center) */}
+      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 hidden lg:flex items-center space-x-1.5 bg-white border border-slate-300 rounded-sm px-3 py-1.5 shadow-md text-xs">
+        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1">
+          Featured Plots:
+        </span>
+        {currentPilotParcels.slice(0, 4).map((p) => (
+          <button
+            key={p.id}
+            onClick={() => onSelectParcel(p)}
+            className={`px-2 py-1 rounded-xs text-[11px] font-semibold flex items-center space-x-1.5 transition-all border ${
+              selectedParcel?.id === p.id
+                ? 'bg-navy-800 text-white border-navy-900 shadow-xs'
+                : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200'
+            }`}
+          >
+            <span>{p.titleStatus === 'CLEAR' ? '🟢' : p.titleStatus === 'ENCUMBERED' ? '🔴' : '🟡'}</span>
+            <span>{p.khasraOrPlotNo.split(',')[0]}</span>
+            <span className="text-[9px] opacity-75 font-normal">
+              ({p.titleStatus === 'CLEAR' ? 'Clear' : p.titleStatus === 'ENCUMBERED' ? 'Lien' : 'Dispute'})
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Map Legend (Bottom Center) */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 hidden md:flex items-center space-x-3.5 bg-white/95 backdrop-blur-xs border border-slate-300 rounded-sm px-3.5 py-1.5 shadow-md text-[11px] text-slate-700">
+        <div className="flex items-center space-x-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block"></span>
+          <span className="font-medium">Clear Title</span>
+        </div>
+        <div className="flex items-center space-x-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-rose-600 inline-block"></span>
+          <span className="font-medium">Active Bank Lien</span>
+        </div>
+        <div className="flex items-center space-x-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+          <span className="font-medium">Revenue Dispute</span>
+        </div>
+        <div className="flex items-center space-x-1.5">
+          <span className="w-2.5 h-2.5 rounded-xs bg-sky-400 border border-sky-600 inline-block"></span>
+          <span className="font-medium">Eco Buffer</span>
+        </div>
+        <div className="flex items-center space-x-1.5">
+          <span className="w-3.5 h-0.5 border-t-2 border-dashed border-yellow-500 inline-block"></span>
+          <span className="font-medium">Power Corridor</span>
         </div>
       </div>
 

@@ -178,18 +178,31 @@ export const Header: React.FC<HeaderProps> = ({
         </nav>
       </div>
 
-      {/* Sub-bar showing active pilot status */}
-      <div className="bg-slate-100 border-t border-slate-200 px-4 py-1 text-[11px] text-slate-700 flex items-center justify-between">
+      {/* Sub-bar showing active pilot status & role guidance */}
+      <div className="bg-slate-100 border-t border-slate-200 px-4 py-1.5 text-[11px] text-slate-700 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center space-x-2">
           <span className="font-semibold text-navy-900">Active Sector:</span>
-          <span>{PILOT_CONFIGS[selectedPilot].name}</span>
+          <span className="font-medium text-slate-800">{PILOT_CONFIGS[selectedPilot].name}</span>
           <span className="text-slate-400">•</span>
-          <span className="text-slate-600 italic">{PILOT_CONFIGS[selectedPilot].badge}</span>
+          <span className="text-slate-600 italic hidden sm:inline">{PILOT_CONFIGS[selectedPilot].badge}</span>
         </div>
-        <div className="hidden md:flex items-center space-x-3 text-slate-600">
-          <span>Authority: {PILOT_CONFIGS[selectedPilot].state} Land Administration</span>
-          <span>•</span>
-          <span className="font-mono">Coordinates: {PILOT_CONFIGS[selectedPilot].center[0].toFixed(4)}°N, {PILOT_CONFIGS[selectedPilot].center[1].toFixed(4)}°E</span>
+        <div className="flex items-center space-x-2 text-[11px]">
+          <span className="font-semibold text-navy-900">Mode:</span>
+          {userRole === 'citizen' && (
+            <span className="text-navy-900 bg-white border border-slate-300 px-2 py-0.5 rounded-xs font-medium">
+              Citizen Access (Public Cadastre, RoR Ownership & Verified PDF Export)
+            </span>
+          )}
+          {userRole === 'patwari' && (
+            <span className="text-blue-900 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-xs font-medium">
+              Revenue Officer (Patwari Field Diary, Mutation Sanctions & Anomaly Flagging)
+            </span>
+          )}
+          {userRole === 'planner' && (
+            <span className="text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-xs font-medium">
+              Town Planner (Master Plan 2031, Eco-Buffers & Municipal Building Permits)
+            </span>
+          )}
         </div>
       </div>
     </header>

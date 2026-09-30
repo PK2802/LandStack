@@ -54,18 +54,36 @@
 
 /* Parcel Label Tooltips */
 .parcel-label-tooltip {
-  background-color: rgba(15, 41, 74, 0.92) !important;
+  background-color: rgba(15, 41, 74, 0.95) !important;
   color: #FFFFFF !important;
   border: 1px solid #38BDF8 !important;
   border-radius: 2px !important;
-  padding: 2px 6px !important;
-  font-family: 'JetBrains Mono', monospace !important;
+  padding: 4px 8px !important;
+  font-family: inherit !important;
   font-size: 11px !important;
   font-weight: 500 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2) !important;
 }
 .parcel-label-tooltip::before {
-  border-top-color: rgba(15, 41, 74, 0.92) !important;
+  border-top-color: rgba(15, 41, 74, 0.95) !important;
+}
+
+/* Permanent Clean Parcel Centroid Badge */
+.parcel-permanent-label {
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: #0F294A !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 3px !important;
+  padding: 1px 5px !important;
+  font-family: inherit !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+}
+.parcel-permanent-label::before {
+  display: none !important;
 }
 
 /* Print Styles for Verified Property Passport */

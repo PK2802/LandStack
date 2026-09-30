@@ -146,6 +146,12 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
         {/* TAB 1: LAND IDENTITY & SURVEY */}
         {activeTab === 'identity' && (
           <div className="space-y-4">
+            {/* Pillar Header */}
+            <div className="bg-blue-50 border border-blue-200 p-2 rounded-xs text-[11px] text-blue-900 flex items-center justify-between">
+              <span className="font-semibold">Pillar 1: Cadastral Survey & DGPS Ground Coordinates</span>
+              <span className="font-mono text-[9px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-xs font-semibold">DGPS Verified</span>
+            </div>
+
             {/* Quick Summary Card */}
             <div className="bg-white border border-slate-200 p-3 rounded-sm shadow-xs space-y-2">
               <div className="flex items-center justify-between border-b border-slate-100 pb-2">
@@ -247,6 +253,12 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
         {/* TAB 2: RECORD OF RIGHTS (RoR) */}
         {activeTab === 'ror' && (
           <div className="space-y-4">
+            {/* Pillar Header */}
+            <div className="bg-blue-50 border border-blue-200 p-2 rounded-xs text-[11px] text-blue-900 flex items-center justify-between">
+              <span className="font-semibold">Pillar 2: Statutory Ownership Record of Rights (RoR)</span>
+              <span className="font-mono text-[9px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-xs font-semibold">Gazette RoR</span>
+            </div>
+
             <div className="bg-white border border-slate-200 p-3 rounded-sm shadow-xs space-y-3">
               <h4 className="font-semibold text-navy-900 text-xs border-b border-slate-100 pb-2 flex items-center">
                 <FileCheck2 className="w-4 h-4 mr-1.5 text-navy-800" />
@@ -327,6 +339,12 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
         {/* TAB 3: ENCUMBRANCE & LIABILITIES */}
         {activeTab === 'encumbrance' && (
           <div className="space-y-4">
+            {/* Pillar Header */}
+            <div className="bg-blue-50 border border-blue-200 p-2 rounded-xs text-[11px] text-blue-900 flex items-center justify-between">
+              <span className="font-semibold">Pillar 3: SRO Registration Deeds & CERSAI Financial Liens</span>
+              <span className="font-mono text-[9px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-xs font-semibold">Sec. 89 Registration</span>
+            </div>
+
             <div className="bg-white border border-slate-200 p-3 rounded-sm shadow-xs space-y-3">
               <h4 className="font-semibold text-navy-900 text-xs border-b border-slate-100 pb-2 flex items-center justify-between">
                 <span className="flex items-center">
@@ -398,6 +416,12 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
         {/* TAB 4: MASTER PLAN & ZONING */}
         {activeTab === 'zoning' && (
           <div className="space-y-4">
+            {/* Pillar Header */}
+            <div className="bg-blue-50 border border-blue-200 p-2 rounded-xs text-[11px] text-blue-900 flex items-center justify-between">
+              <span className="font-semibold">Pillar 4: Town Planning Master Plan 2031 & Eco-Buffers</span>
+              <span className="font-mono text-[9px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded-xs font-semibold">Municipal Bylaws</span>
+            </div>
+
             <div className="bg-white border border-slate-200 p-3 rounded-sm shadow-xs space-y-3">
               <h4 className="font-semibold text-navy-900 text-xs border-b border-slate-100 pb-2 flex items-center justify-between">
                 <span className="flex items-center">
@@ -461,6 +485,20 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
             )}
           </div>
         )}
+
+        {/* Quick Terminology Reference Guide */}
+        <div className="bg-white border border-slate-200 p-3 rounded-sm text-[11px] text-slate-600 space-y-1.5 shadow-xs">
+          <div className="font-bold text-navy-900 text-xs flex items-center justify-between border-b border-slate-100 pb-1.5">
+            <span>Land Stack Quick Reference Guide:</span>
+            <span className="text-[10px] text-slate-500 font-mono">DILRMP DPI</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[10px] text-slate-700">
+            <p>• <strong>ULPIN:</strong> 14-digit Bhu-Aadhaar cadastral geohash</p>
+            <p>• <strong>RoR:</strong> Form-VII Jamabandi / Patta title ledger</p>
+            <p>• <strong>CERSAI:</strong> Central bank mortgage registry</p>
+            <p>• <strong>FSI:</strong> Max permissible built-up floor area ratio</p>
+          </div>
+        </div>
 
         {/* Role-Specific Patwari / Planner Insight Block */}
         {userRole === 'patwari' && (
