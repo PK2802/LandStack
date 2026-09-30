@@ -6,7 +6,6 @@ import {
   Layers, 
   Search, 
   X, 
-  AlertTriangle, 
   Cpu, 
   Play, 
   ZoomIn, 
@@ -304,6 +303,10 @@ export const GISPortal: React.FC<GISPortalProps> = ({
             direction: 'center',
             className: 'parcel-label-tooltip',
           });
+
+          sliver.on('click', () => {
+            onOpenEncroachment(parcel);
+          });
         }
       }
     });
@@ -392,105 +395,10 @@ export const GISPortal: React.FC<GISPortalProps> = ({
               ))}
             </div>
           )}
-          {/* Quick Search Suggestion Chips */}
-          <div className="flex items-center space-x-1.5 mt-1.5 text-[10px] text-slate-500 overflow-x-auto whitespace-nowrap py-0.5">
-            <span className="font-semibold text-slate-600">Quick:</span>
-            {selectedPilot === 'chandigarh' ? (
-              <>
-                <button
-                  onClick={() => setSearchQuery('SCO 143')}
-                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
-                >
-                  "SCO 143" (Lien)
-                </button>
-                <button
-                  onClick={() => setSearchQuery('Brar')}
-                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
-                >
-                  "Brar" (Clear)
-                </button>
-                <button
-                  onClick={() => setSearchQuery('Plot 49')}
-                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
-                >
-                  "Plot 49" (Dispute)
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => setSearchQuery('142/2')}
-                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
-                >
-                  "142/2" (Canara Bank)
-                </button>
-                <button
-                  onClick={() => setSearchQuery('Ramanathan')}
-                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
-                >
-                  "Ramanathan" (Clear)
-                </button>
-                <button
-                  onClick={() => setSearchQuery('144/A')}
-                  className="px-1.5 py-0.5 bg-white border border-slate-300 rounded-xs hover:bg-slate-100 text-slate-700 font-medium"
-                >
-                  "144/A" (River Buffer)
-                </button>
-              </>
-            )}
-          </div>
         </div>
       </div>
 
-      {/* Featured Parcels Quick Bar (Top Center) */}
-      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 hidden lg:flex items-center space-x-1.5 bg-white border border-slate-300 rounded-sm px-3 py-1.5 shadow-md text-xs">
-        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-1">
-          Featured Plots:
-        </span>
-        {currentPilotParcels.slice(0, 4).map((p) => (
-          <button
-            key={p.id}
-            onClick={() => onSelectParcel(p)}
-            className={`px-2 py-1 rounded-xs text-[11px] font-semibold flex items-center space-x-1.5 transition-all border ${
-              selectedParcel?.id === p.id
-                ? 'bg-navy-800 text-white border-navy-900 shadow-xs'
-                : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200'
-            }`}
-          >
-            <span>{p.titleStatus === 'CLEAR' ? '🟢' : p.titleStatus === 'ENCUMBERED' ? '🔴' : '🟡'}</span>
-            <span>{p.khasraOrPlotNo.split(',')[0]}</span>
-            <span className="text-[9px] opacity-75 font-normal">
-              ({p.titleStatus === 'CLEAR' ? 'Clear' : p.titleStatus === 'ENCUMBERED' ? 'Lien' : 'Dispute'})
-            </span>
-          </button>
-        ))}
-      </div>
-
-      {/* Map Legend (Bottom Center) */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 hidden md:flex items-center space-x-3.5 bg-white/95 backdrop-blur-xs border border-slate-300 rounded-sm px-3.5 py-1.5 shadow-md text-[11px] text-slate-700">
-        <div className="flex items-center space-x-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block"></span>
-          <span className="font-medium">Clear Title</span>
-        </div>
-        <div className="flex items-center space-x-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-rose-600 inline-block"></span>
-          <span className="font-medium">Active Bank Lien</span>
-        </div>
-        <div className="flex items-center space-x-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
-          <span className="font-medium">Revenue Dispute</span>
-        </div>
-        <div className="flex items-center space-x-1.5">
-          <span className="w-2.5 h-2.5 rounded-xs bg-sky-400 border border-sky-600 inline-block"></span>
-          <span className="font-medium">Eco Buffer</span>
-        </div>
-        <div className="flex items-center space-x-1.5">
-          <span className="w-3.5 h-0.5 border-t-2 border-dashed border-yellow-500 inline-block"></span>
-          <span className="font-medium">Power Corridor</span>
-        </div>
-      </div>
-
-      {/* Layer Control Drawer (Floating Right or Left) */}
+      {/* Layer Control Drawer (Floating Right) */}
       <div className={`absolute top-4 right-4 z-20 transition-all duration-200 ${
         isLayerDrawerOpen ? 'w-72' : 'w-auto'
       }`}>
@@ -502,7 +410,7 @@ export const GISPortal: React.FC<GISPortalProps> = ({
           >
             <div className="flex items-center space-x-1.5">
               <Layers className="w-3.5 h-3.5 text-amber-400" />
-              <span className="font-bold tracking-wide">3-Tier Geospatial Layers</span>
+              <span className="font-bold tracking-wide">Map Layers</span>
             </div>
             <button className="text-slate-400 hover:text-white text-[11px]">
               {isLayerDrawerOpen ? 'Collapse' : 'Expand'}
@@ -512,13 +420,10 @@ export const GISPortal: React.FC<GISPortalProps> = ({
           {/* Layer Checkboxes */}
           {isLayerDrawerOpen && (
             <div className="p-3 space-y-3.5 max-h-[calc(100vh-230px)] overflow-y-auto">
-              {/* BASEMAP PROVIDER SELECTOR (NO API KEY REQUIRED) */}
+              {/* BASEMAP PROVIDER SELECTOR */}
               <div className="space-y-1.5 pb-2.5 border-b border-slate-200">
-                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
-                  <span>Base Map Tile Layer</span>
-                  <span className="text-[9px] text-emerald-700 bg-emerald-50 px-1 py-0.5 rounded-xs font-mono font-semibold border border-emerald-200">
-                    No Key Needed
-                  </span>
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                  Base Map
                 </div>
                 <div className="grid grid-cols-3 gap-1 bg-slate-100 p-1 rounded-sm text-[10px] font-medium">
                   <button
@@ -551,7 +456,7 @@ export const GISPortal: React.FC<GISPortalProps> = ({
               {/* TIER 1: BASE LAYER */}
               <div className="space-y-1.5">
                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                  Tier 1: Cadastral Base
+                  Cadastral Base
                 </div>
                 <label className="flex items-center space-x-2 text-slate-800 cursor-pointer">
                   <input
@@ -567,7 +472,7 @@ export const GISPortal: React.FC<GISPortalProps> = ({
               {/* TIER 2: ESSENTIAL GOVERNANCE & RIGHTS */}
               <div className="space-y-1.5 pt-2 border-t border-slate-200">
                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                  Tier 2: Governance & Rights
+                  Governance & Rights
                 </div>
                 <label className="flex items-center space-x-2 text-slate-800 cursor-pointer">
                   <input
@@ -606,7 +511,7 @@ export const GISPortal: React.FC<GISPortalProps> = ({
               {/* TIER 3: USE-CASE RESTRICTIONS & INFRASTRUCTURE */}
               <div className="space-y-1.5 pt-2 border-t border-slate-200">
                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                  Tier 3: Restrictions & Zoning
+                  Restrictions & Zoning
                 </div>
                 <label className="flex items-center space-x-2 text-slate-800 cursor-pointer">
                   <input
@@ -666,6 +571,31 @@ export const GISPortal: React.FC<GISPortalProps> = ({
                   </span>
                 </button>
               </div>
+
+              {/* MAP LEGEND (COMPACT) */}
+              <div className="pt-2.5 border-t border-slate-200">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                  Legend
+                </div>
+                <div className="grid grid-cols-2 gap-1.5 text-[11px] text-slate-700">
+                  <div className="flex items-center space-x-1.5">
+                    <span className="w-2.5 h-2.5 rounded-xs bg-emerald-600 shrink-0"></span>
+                    <span>Clear Title</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <span className="w-2.5 h-2.5 rounded-xs bg-rose-600 shrink-0"></span>
+                    <span>Bank Lien</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <span className="w-2.5 h-2.5 rounded-xs bg-amber-500 shrink-0"></span>
+                    <span>Disputed</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5">
+                    <span className="w-2.5 h-2.5 rounded-xs bg-sky-500 shrink-0"></span>
+                    <span>Water Buffer</span>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -696,25 +626,15 @@ export const GISPortal: React.FC<GISPortalProps> = ({
         </button>
       </div>
 
-      {/* Floating Action Strip (Bottom Left) */}
-      <div className="absolute bottom-6 left-4 z-20 flex flex-wrap items-center gap-2">
+      {/* Action Button (Bottom Left) */}
+      <div className="absolute bottom-6 left-4 z-20">
         <button
           onClick={() => onOpenSimulator(selectedParcel || currentPilotParcels[0])}
-          className="px-3 py-2 bg-navy-900 hover:bg-navy-800 text-white font-medium text-xs rounded-sm shadow-md flex items-center space-x-1.5 transition-colors border border-navy-700"
+          className="px-3.5 py-2 bg-navy-900 hover:bg-navy-800 text-white font-medium text-xs rounded-sm shadow-md flex items-center space-x-2 transition-colors border border-navy-700"
         >
           <Play className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
           <span>Cross-Departmental Simulator</span>
         </button>
-
-        {selectedPilot === 'chandigarh' && (
-          <button
-            onClick={() => onOpenEncroachment(PARCELS_DATA[1])}
-            className="px-3 py-2 bg-rose-700 hover:bg-rose-800 text-white font-medium text-xs rounded-sm shadow-md flex items-center space-x-1.5 transition-colors border border-rose-900"
-          >
-            <AlertTriangle className="w-3.5 h-3.5 text-amber-300" />
-            <span>Inspect Encroachment Anomaly (SCO 144)</span>
-          </button>
-        )}
       </div>
 
       {/* The Leaflet Canvas */}
