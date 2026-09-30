@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="12" fill="#0F294A" />
+  <!-- Land Parcel Quadrants -->
+  <path d="M14 14H30V30H14V14Z" fill="#1E3A8A" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="2 2" />
+  <path d="M34 14H50V26H34V14Z" fill="#15803D" stroke="#86EFAC" stroke-width="1.5" />
+  <path d="M14 34H26V50H14V34Z" fill="#D97706" stroke="#FDE68A" stroke-width="1.5" />
+  <path d="M30 30H50V50H30V30Z" fill="#B91C1C" stroke="#FCA5A5" stroke-width="1.5" />
+  
+  <!-- Central Geodetic Datum / Ashoka Blue Circle Marker -->
+  <circle cx="32" cy="32" r="7" fill="#FFFFFF" stroke="#0F294A" stroke-width="2" />
+  <circle cx="32" cy="32" r="3.5" fill="#0F294A" />
+  <path d="M32 25V39M25 32H39M27 27L37 37M27 37L37 27" stroke="#0F294A" stroke-width="0.8" />
+</svg>
