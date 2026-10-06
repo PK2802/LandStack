@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, FileWarning, Terminal } from 'lucide-react';
+import { AlertTriangle, FileWarning, Terminal, ExternalLink } from 'lucide-react';
 
 export const TermsPage: React.FC = () => {
   return (
@@ -39,8 +39,37 @@ export const TermsPage: React.FC = () => {
             </p>
           </div>
           <p className="text-slate-700">
-            For judicial proceedings, civil litigation, or statutory registry conveyance, citizens must procure an official certified extract (Jamabandi copy / Nakal / e-Patta) signed by the jurisdictional Revenue Officer (Tehsildar / Patwari / Village Administrative Officer) through the respective State Land Records portal.
+            For judicial proceedings, civil litigation, or statutory registry conveyance, citizens must procure an official certified extract (Jamabandi copy / Nakal / e-Patta) signed by the jurisdictional Revenue Officer (Tehsildar / Patwari / Village Administrative Officer) through the respective State Land Records portal:
           </p>
+          <div className="flex flex-wrap gap-2 pt-1 text-[11px]">
+            <a
+              href="https://estateoffice.chd.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-blue-700 font-semibold rounded-xs border border-slate-300 flex items-center space-x-1 transition-colors"
+            >
+              <span>Chandigarh Estate Office</span>
+              <ExternalLink className="w-2.5 h-2.5" />
+            </a>
+            <a
+              href="https://eservices.tn.gov.in/eservicesnew/index.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-blue-700 font-semibold rounded-xs border border-slate-300 flex items-center space-x-1 transition-colors"
+            >
+              <span>Tamil Nadu e-Services (Patta/Chitta)</span>
+              <ExternalLink className="w-2.5 h-2.5" />
+            </a>
+            <a
+              href="https://dilrmp.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-blue-700 font-semibold rounded-xs border border-slate-300 flex items-center space-x-1 transition-colors"
+            >
+              <span>Digital India Land Records Portal</span>
+              <ExternalLink className="w-2.5 h-2.5" />
+            </a>
+          </div>
         </section>
 
         {/* Section 2: Spatial Coordinate Tolerances & Geodetic Datum */}
@@ -53,7 +82,7 @@ export const TermsPage: React.FC = () => {
           </p>
           <ul className="list-disc list-inside space-y-1.5 pl-2 text-slate-700">
             <li>
-              <strong>Urban Pilots (Chandigarh Sector 17/18):</strong> Spatial coordinates maintain a horizontal tolerance threshold of ± 0.05 meters (50 mm), tied to Survey of India Continuously Operating Reference Stations (CORS).
+              <strong>Urban Pilots (Chandigarh Sector 17/18):</strong> Spatial coordinates maintain a horizontal tolerance threshold of ± 0.05 meters (50 mm), tied to <a href="https://cors.surveyofindia.gov.in" target="_blank" rel="noopener noreferrer" className="text-blue-700 underline font-semibold">Survey of India Continuously Operating Reference Stations (CORS)</a>.
             </li>
             <li>
               <strong>Rural Agricultural Pilots (Tamil Nadu Nemili):</strong> Spatial boundaries derived from Field Measurement Books have an administrative tolerance threshold of ± 0.25 meters.

@@ -11,7 +11,8 @@ import {
   Copy, 
   Check, 
   AlertTriangle,
-  Play
+  Play,
+  ExternalLink
 } from 'lucide-react';
 
 interface PropertyPassportProps {
@@ -21,6 +22,7 @@ interface PropertyPassportProps {
   onRunSimulator: (parcel: Parcel) => void;
   onOpenEncroachment: (parcel: Parcel) => void;
   userRole: UserRole;
+  onOpenGovRecord?: (parcel: Parcel) => void;
 }
 
 export const PropertyPassport: React.FC<PropertyPassportProps> = ({
@@ -30,6 +32,7 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
   onRunSimulator,
   onOpenEncroachment,
   userRole: _userRole,
+  onOpenGovRecord,
 }) => {
   const [activeTab, setActiveTab] = useState<'identity' | 'ror' | 'encumbrance' | 'zoning'>('identity');
   const [copiedULPIN, setCopiedULPIN] = useState(false);
@@ -244,10 +247,31 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
         {/* TAB 2: RECORD OF RIGHTS (RoR) */}
         {activeTab === 'ror' && (
           <div className="space-y-4">
+            {/* View Official Gov Record Extract Action */}
+            <div className="bg-amber-50/80 border border-amber-300 p-2.5 rounded-sm flex items-center justify-between shadow-2xs">
+              <div className="flex items-center space-x-2">
+                <Landmark className="w-4 h-4 text-amber-700 shrink-0" />
+                <div>
+                  <div className="font-bold text-navy-950 text-xs">
+                    {parcel.pilot === 'chandigarh' ? 'Official Jamabandi Nakal (जमाबंदी नक़ल)' : 'Official AnyPatta / Chitta Extract (பட்டா நகல்)'}
+                  </div>
+                  <div className="text-[10px] text-slate-600">
+                    Bilingual certified revenue record under DILRMP framework
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => onOpenGovRecord?.(parcel)}
+                className="px-2.5 py-1.5 bg-navy-900 hover:bg-navy-800 text-amber-300 font-bold text-[11px] rounded-xs transition-colors flex items-center space-x-1 shadow-xs shrink-0 ml-2"
+              >
+                <span>View Extract</span>
+              </button>
+            </div>
+
             <div className="bg-white border border-slate-200 p-3 rounded-sm shadow-xs space-y-3">
               <h4 className="font-semibold text-navy-900 text-xs border-b border-slate-100 pb-2 flex items-center">
                 <FileCheck2 className="w-4 h-4 mr-1.5 text-navy-800" />
-                Ownership Particulars (Form-VII Jamabandi / Patta)
+                Ownership Particulars ({parcel.pilot === 'chandigarh' ? 'Jamabandi Form-VII' : 'Chitta & \'A\' Register'})
               </h4>
 
               <div className="space-y-2">
@@ -259,15 +283,29 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
                   <span className="text-slate-500 block text-[11px]">Father / Spouse Name</span>
                   <span className="font-medium text-slate-800">{parcel.ror.fatherOrSpouseName}</span>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   <div>
                     <span className="text-slate-500 block text-[11px]">Share Percentage</span>
                     <span className="font-semibold text-navy-900">{parcel.ror.sharePercentage}% (Sole / Undivided)</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 block text-[11px]">Khatauni / Patta No</span>
-                    <span className="font-mono text-navy-900 font-medium">{parcel.ror.khatauniOrPattaNo}</span>
+                    <span className="text-slate-500 block text-[11px]">
+                      {parcel.pilot === 'chandigarh' ? 'Khewat / Account No' : 'Patta Number'}
+                    </span>
+                    <span className="font-mono text-navy-900 font-medium">
+                      {parcel.ror.khewatNo || parcel.ror.khatauniOrPattaNo}
+                    </span>
                   </div>
+                  <div>
+                    <span className="text-slate-500 block text-[11px]">Annual Land Cess</span>
+                    <span className="font-mono font-semibold text-emerald-800">
+                      ₹{parcel.ror.landRevenueTaxINR || 0}
+                    </span>
+                  </div>
+                </div>
+                <div className="pt-1 text-[11px] text-slate-600 flex items-center justify-between border-t border-slate-100">
+                  <span>Field Measurement Book (FMB):</span>
+                  <span className="font-mono text-slate-700">{parcel.ror.fmbSheetNo || 'FMB-Cadastre-Sheet-1'}</span>
                 </div>
               </div>
             </div>
@@ -295,9 +333,21 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
                   <span className="font-medium">{parcel.ror.jamabandiOrFasliYear}</span>
                 </div>
               </div>
-              <div className="pt-2 border-t border-slate-100">
-                <span className="text-slate-500 block text-[11px]">Jurisdictional Registration Office</span>
-                <span className="font-medium text-navy-900">{parcel.ror.sroOffice}</span>
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <span className="text-slate-500 block text-[11px]">Jurisdictional Registration Office</span>
+                  <span className="font-medium text-navy-900">{parcel.ror.sroOffice}</span>
+                </div>
+                <a
+                  href={parcel.pilot === 'chandigarh' ? 'https://estateoffice.chd.gov.in' : 'https://eservices.tn.gov.in/eservicesnew/index.html'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-blue-700 font-semibold rounded-xs border border-slate-300 flex items-center space-x-1 transition-colors text-[10px]"
+                  title="Verify on State Land Portal"
+                >
+                  <span>Verify on State Portal</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
               </div>
             </div>
 
@@ -366,9 +416,29 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
                       </div>
                     </div>
 
-                    <div className="mt-2.5 pt-2 border-t border-rose-200 text-[11px] text-rose-800 space-y-1">
-                      <p><span className="font-semibold">CERSAI ID:</span> <span className="font-mono">{parcel.encumbrance.chargeIdCERSAI}</span></p>
-                      <p><span className="font-semibold">Deed Record:</span> <span className="font-mono">{parcel.encumbrance.deedRefNo}</span></p>
+                    <div className="mt-2.5 pt-2 border-t border-rose-200 flex items-center justify-between">
+                      <div className="text-[11px] text-rose-800 space-y-0.5">
+                        <p><span className="font-semibold">CERSAI ID:</span> <span className="font-mono">{parcel.encumbrance.chargeIdCERSAI}</span></p>
+                        <p><span className="font-semibold">Deed Record:</span> <span className="font-mono">{parcel.encumbrance.deedRefNo}</span></p>
+                      </div>
+                      <div className="flex items-center space-x-1.5 shrink-0 ml-2">
+                        <button
+                          onClick={() => onOpenGovRecord?.(parcel)}
+                          className="px-2 py-1 bg-navy-900 hover:bg-navy-800 text-amber-300 font-bold rounded-xs transition-colors text-[10px] shadow-2xs"
+                        >
+                          Official Filing
+                        </button>
+                        <a
+                          href="https://www.cersai.org.in"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-2 py-1 bg-white hover:bg-rose-100 text-rose-800 font-semibold rounded-xs border border-rose-300 flex items-center space-x-1 transition-colors text-[10px] shadow-2xs"
+                          title="Search Central Registry of Securitisation Asset Reconstruction"
+                        >
+                          <span>CERSAI Portal</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
+                        </a>
+                      </div>
                     </div>
                   </div>
 
@@ -441,6 +511,18 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
                     <span className="font-medium text-[11px]">{parcel.zoning.setbackRequirement}</span>
                   </div>
                 </div>
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                  <span className="text-slate-500 text-[10px]">Statutory Master Plan Framework:</span>
+                  <a
+                    href={parcel.pilot === 'chandigarh' ? 'https://chandigarh.gov.in' : 'https://www.cmdachennai.gov.in'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-700 hover:text-blue-900 font-semibold flex items-center space-x-1 text-[10px] underline"
+                  >
+                    <span>{parcel.pilot === 'chandigarh' ? 'Chandigarh Master Plan 2031' : 'CMDA Regional Master Plan'}</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -465,15 +547,24 @@ export const PropertyPassport: React.FC<PropertyPassportProps> = ({
       <div className="p-3 bg-white border-t border-slate-200 flex items-center justify-between gap-2">
         <button
           onClick={() => onExportPDF(parcel)}
-          className="flex-1 py-2 px-3 rounded-sm bg-navy-800 text-white font-medium text-xs hover:bg-navy-900 flex items-center justify-center space-x-1.5 transition-colors shadow-xs"
+          className="flex-1 py-2 px-2.5 rounded-sm bg-navy-800 text-white font-medium text-xs hover:bg-navy-900 flex items-center justify-center space-x-1.5 transition-colors shadow-xs"
         >
           <Printer className="w-3.5 h-3.5" />
           <span>Export Verified Passport (PDF)</span>
         </button>
 
         <button
+          onClick={() => onOpenGovRecord?.(parcel)}
+          className="py-2 px-2.5 rounded-sm bg-amber-50 text-amber-900 border border-amber-300 font-bold text-xs hover:bg-amber-100 flex items-center space-x-1 transition-colors shadow-2xs"
+          title="View Official Government Record of Rights (Jamabandi / Patta)"
+        >
+          <Landmark className="w-3.5 h-3.5 text-amber-700" />
+          <span>Gov Record</span>
+        </button>
+
+        <button
           onClick={() => onRunSimulator(parcel)}
-          className="py-2 px-3 rounded-sm bg-slate-100 text-navy-900 border border-slate-300 font-medium text-xs hover:bg-slate-200 flex items-center space-x-1 transition-colors"
+          className="py-2 px-2.5 rounded-sm bg-slate-100 text-navy-900 border border-slate-300 font-medium text-xs hover:bg-slate-200 flex items-center space-x-1 transition-colors"
           title="Run Spatial Simulator"
         >
           <Play className="w-3 h-3 text-amber-600 fill-amber-600" />

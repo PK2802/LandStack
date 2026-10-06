@@ -12,6 +12,7 @@ import { TechnicalDocsPage } from './components/TechnicalDocsPage';
 import { PrivacyPolicyPage } from './components/PrivacyPolicyPage';
 import { TermsPage } from './components/TermsPage';
 import { CustomDomainModal } from './components/CustomDomainModal';
+import { OfficialGovRecordModal } from './components/OfficialGovRecordModal';
 
 export const App: React.FC = () => {
   // Navigation / View State
@@ -31,6 +32,7 @@ export const App: React.FC = () => {
   const [isSimulatorModalOpen, setIsSimulatorModalOpen] = useState(false);
   const [isEncroachmentModalOpen, setIsEncroachmentModalOpen] = useState(false);
   const [isCustomDomainModalOpen, setIsCustomDomainModalOpen] = useState(false);
+  const [isGovRecordModalOpen, setIsGovRecordModalOpen] = useState(false);
 
   // Synchronize browser history / URL path
   useEffect(() => {
@@ -109,6 +111,7 @@ export const App: React.FC = () => {
               onOpenSimulator={handleOpenSimulator}
               onOpenEncroachment={handleOpenEncroachment}
               userRole={userRole}
+              onSelectPilot={handleSelectPilot}
             />
 
             {/* Slide-over Digital Property Passport */}
@@ -120,6 +123,10 @@ export const App: React.FC = () => {
                 onRunSimulator={handleOpenSimulator}
                 onOpenEncroachment={handleOpenEncroachment}
                 userRole={userRole}
+                onOpenGovRecord={(p) => {
+                  setSelectedParcel(p);
+                  setIsGovRecordModalOpen(true);
+                }}
               />
             )}
           </div>
@@ -138,6 +145,13 @@ export const App: React.FC = () => {
         <PassportPrintModal
           parcel={selectedParcel}
           onClose={() => setIsPrintModalOpen(false)}
+        />
+      )}
+
+      {isGovRecordModalOpen && selectedParcel && (
+        <OfficialGovRecordModal
+          parcel={selectedParcel}
+          onClose={() => setIsGovRecordModalOpen(false)}
         />
       )}
 

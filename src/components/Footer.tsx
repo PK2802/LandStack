@@ -35,20 +35,48 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </h4>
           <ul className="space-y-1.5 text-slate-400 text-xs">
             <li className="flex items-center space-x-1.5">
-              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500"></span>
-              <span>ULPIN Standard: 14-digit alphanumeric geo-hash</span>
+              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500 shrink-0"></span>
+              <a
+                href="https://dolr.gov.in/ulpin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-300 hover:underline"
+              >
+                ULPIN Standard: 14-digit geo-hash
+              </a>
             </li>
             <li className="flex items-center space-x-1.5">
-              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500"></span>
-              <span>OGC API: Features (ISO 19168-1) compliant</span>
+              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500 shrink-0"></span>
+              <a
+                href="https://ogcapi.ogc.org/features/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-300 hover:underline"
+              >
+                OGC API: Features (ISO 19168-1)
+              </a>
             </li>
             <li className="flex items-center space-x-1.5">
-              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500"></span>
-              <span>Tile Services: OGC WMS 1.3.0 and Mapbox Vector Tiles</span>
+              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500 shrink-0"></span>
+              <a
+                href="https://www.ogc.org/standards/wms/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-300 hover:underline"
+              >
+                Tile Services: OGC WMS 1.3.0 & MVT
+              </a>
             </li>
             <li className="flex items-center space-x-1.5">
-              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500"></span>
-              <span>Security: PostGIS 3.4 with TLS 1.3 encryption</span>
+              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500 shrink-0"></span>
+              <a
+                href="https://postgis.net/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-300 hover:underline"
+              >
+                Spatial Engine: PostGIS 3.4 & TLS 1.3
+              </a>
             </li>
           </ul>
         </div>
@@ -60,11 +88,61 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             Departmental Integrations
           </h4>
           <ul className="space-y-1.5 text-slate-400 text-xs">
-            <li>State Revenue Departments (RoR Jamabandi / Patta)</li>
-            <li>Sub-Registrar Offices (NGDRS Deed Registration)</li>
-            <li>CERSAI & Scheduled Commercial Banking Liens</li>
-            <li>Town & Country Planning Master Plan Zoning</li>
-            <li>Survey of India (CORS Network DGPS Ground Control)</li>
+            <li className="flex items-center space-x-1.5">
+              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500 shrink-0"></span>
+              <a
+                href="https://dilrmp.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-300 hover:underline"
+              >
+                State Revenue RoR (Jamabandi/Patta)
+              </a>
+            </li>
+            <li className="flex items-center space-x-1.5">
+              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500 shrink-0"></span>
+              <a
+                href="https://ngdrs.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-300 hover:underline"
+              >
+                Sub-Registrar Deeds (NGDRS)
+              </a>
+            </li>
+            <li className="flex items-center space-x-1.5">
+              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500 shrink-0"></span>
+              <a
+                href="https://www.cersai.org.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-300 hover:underline"
+              >
+                CERSAI & Banking Mortgages
+              </a>
+            </li>
+            <li className="flex items-center space-x-1.5">
+              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500 shrink-0"></span>
+              <a
+                href="https://mohua.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-300 hover:underline"
+              >
+                Town & Country Planning Master Plan
+              </a>
+            </li>
+            <li className="flex items-center space-x-1.5">
+              <span className="w-1.5 h-1.5 rounded-xs bg-slate-500 shrink-0"></span>
+              <a
+                href="https://cors.surveyofindia.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-300 hover:underline"
+              >
+                Survey of India CORS (DGPS Control)
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -72,24 +150,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="space-y-3">
           <h4 className="font-semibold text-white text-xs uppercase tracking-wider flex items-center">
             <MapPin className="w-3.5 h-3.5 text-blue-400 mr-1.5" />
-            Statutory & Legal
+            Statutory & Official Portals
           </h4>
-          <div className="flex flex-col space-y-2 text-xs">
+          <div className="flex flex-col space-y-1.5 text-xs">
             <button
               onClick={() => onNavigate('privacy-policy')}
-              className="text-left text-slate-300 hover:text-white hover:underline"
+              className="text-left text-slate-300 hover:text-white hover:underline cursor-pointer"
             >
               DPDP Act 2023 Statutory Privacy Policy
             </button>
             <button
               onClick={() => onNavigate('terms')}
-              className="text-left text-slate-300 hover:text-white hover:underline"
+              className="text-left text-slate-300 hover:text-white hover:underline cursor-pointer"
             >
               Terms of Service & Evidentiary Disclaimer
             </button>
             <button
               onClick={() => onNavigate('technical-docs')}
-              className="text-left text-slate-300 hover:text-white hover:underline"
+              className="text-left text-slate-300 hover:text-white hover:underline cursor-pointer"
             >
               Standard Technical Document (STD v1.4)
             </button>
@@ -100,6 +178,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               className="text-slate-400 hover:text-amber-300 flex items-center space-x-1"
             >
               <span>DoLR Official Portal</span>
+              <ExternalLink className="w-3 h-3 ml-0.5" />
+            </a>
+            <a
+              href="https://dilrmp.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-amber-300 flex items-center space-x-1"
+            >
+              <span>Digital India Land Records (DILRMP)</span>
+              <ExternalLink className="w-3 h-3 ml-0.5" />
+            </a>
+            <a
+              href="https://bhunaksha.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-amber-300 flex items-center space-x-1"
+            >
+              <span>BhuNaksha (NIC Cadastral Engine)</span>
               <ExternalLink className="w-3 h-3 ml-0.5" />
             </a>
           </div>

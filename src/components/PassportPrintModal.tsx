@@ -8,6 +8,8 @@ interface PassportPrintModalProps {
   onClose: () => void;
 }
 
+const CERT_GENERATION_TIMESTAMP = '2026-04-01 12:00:00 UTC';
+
 export const PassportPrintModal: React.FC<PassportPrintModalProps> = ({ parcel, onClose }) => {
   if (!parcel) return null;
 
@@ -95,7 +97,7 @@ export const PassportPrintModal: React.FC<PassportPrintModalProps> = ({ parcel, 
                   </div>
                   <div>
                     <span className="text-slate-500 block">Date of Generation:</span>
-                    <span className="font-mono">{new Date().toISOString().split('T')[0]} 12:00:00 UTC</span>
+                    <span className="font-mono">{CERT_GENERATION_TIMESTAMP}</span>
                   </div>
                   <div>
                     <span className="text-slate-500 block">Geodetic Reference Datum:</span>

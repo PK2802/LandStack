@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Mail, Clock, Phone } from 'lucide-react';
+import { ShieldCheck, Mail, Clock, Phone, ExternalLink } from 'lucide-react';
 
 export const PrivacyPolicyPage: React.FC = () => {
   return (
@@ -18,8 +18,17 @@ export const PrivacyPolicyPage: React.FC = () => {
           <p className="text-slate-600 text-xs mt-1">
             Department of Land Resources (DoLR), Ministry of Rural Development, Government of India.
           </p>
-          <div className="mt-2 text-[11px] text-slate-500 font-medium">
-            Effective Date: 1st April 2026 • Mandated under Digital Personal Data Protection Act, 2023 (Act No. 22 of 2023).
+          <div className="mt-2 text-[11px] text-slate-500 font-medium flex flex-wrap items-center gap-2">
+            <span>Effective Date: 1st April 2026 • Mandated under Digital Personal Data Protection Act, 2023 (Act No. 22 of 2023).</span>
+            <a
+              href="https://www.meity.gov.in/content/digital-personal-data-protection-act-2023"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-700 hover:text-blue-900 font-semibold underline flex items-center space-x-0.5 ml-1"
+            >
+              <span>View Official Gazette PDF</span>
+              <ExternalLink className="w-2.5 h-2.5 ml-0.5" />
+            </a>
           </div>
         </div>
 
@@ -139,7 +148,18 @@ export const PrivacyPolicyPage: React.FC = () => {
                 <p className="flex items-center"><Mail className="w-3.5 h-3.5 mr-1.5 text-slate-500" /> dpo-landstack@gov.in</p>
                 <p className="flex items-center"><Phone className="w-3.5 h-3.5 mr-1.5 text-slate-500" /> +91-11-2306-1248 (Mon - Fri, 09:30 - 17:30 IST)</p>
                 <p className="flex items-center"><Clock className="w-3.5 h-3.5 mr-1.5 text-slate-500" /> Statutory Resolution Timeline: 30 Working Days</p>
-                <p className="text-slate-500 text-[10px]">Appellate Body: Data Protection Board of India</p>
+                <div className="text-slate-500 text-[10px] flex items-center justify-between pt-1 border-t border-slate-200">
+                  <span>Appellate Body: Data Protection Board of India</span>
+                  <a
+                    href="https://pgportal.gov.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-700 hover:text-blue-900 font-semibold underline flex items-center space-x-0.5"
+                  >
+                    <span>Lodge on CPGRAMS Portal</span>
+                    <ExternalLink className="w-2.5 h-2.5 ml-0.5" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>

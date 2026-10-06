@@ -7,7 +7,8 @@ import {
   Database, 
   Network, 
   Shield, 
-  Code
+  Code,
+  ExternalLink
 } from 'lucide-react';
 
 export const TechnicalDocsPage: React.FC = () => {
@@ -406,10 +407,62 @@ Statutory mask of personal identifiers for Public Citizen access. Full mutation 
         {/* Section 5: Standards Compliance */}
         <section className="space-y-3 pt-4 border-t border-slate-200 text-[11px] text-slate-600">
           <div className="font-semibold text-navy-900 text-xs">Standard Compliance & Statutory Governance:</div>
-          <p>• OGC API - Features (ISO 19168-1:2020) Core Conformity Level 1</p>
-          <p>• Open Geospatial Consortium (OGC) Web Map Service (WMS) 1.3.0</p>
-          <p>• Digital Personal Data Protection Act, 2023 (Section 6, 8, and 12 Mandates)</p>
-          <p>• Information Technology Act, 2000 (Section 43A and 66E - Reasonable Security Practices)</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px]">
+            <a
+              href="https://ogcapi.ogc.org/features/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-sm border border-slate-200 hover:bg-slate-50 flex items-center justify-between text-navy-900 font-medium hover:text-blue-700 transition-colors"
+            >
+              <span>• OGC API - Features (ISO 19168-1:2020) Core Conformity Level 1</span>
+              <ExternalLink className="w-3 h-3 text-slate-400 shrink-0 ml-1" />
+            </a>
+            <a
+              href="https://www.ogc.org/standards/wms/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-sm border border-slate-200 hover:bg-slate-50 flex items-center justify-between text-navy-900 font-medium hover:text-blue-700 transition-colors"
+            >
+              <span>• Open Geospatial Consortium (OGC) Web Map Service (WMS) 1.3.0</span>
+              <ExternalLink className="w-3 h-3 text-slate-400 shrink-0 ml-1" />
+            </a>
+            <a
+              href="https://www.meity.gov.in/content/digital-personal-data-protection-act-2023"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-sm border border-slate-200 hover:bg-slate-50 flex items-center justify-between text-navy-900 font-medium hover:text-blue-700 transition-colors"
+            >
+              <span>• Digital Personal Data Protection Act, 2023 (Sec. 6, 8, 12 Mandates)</span>
+              <ExternalLink className="w-3 h-3 text-slate-400 shrink-0 ml-1" />
+            </a>
+            <a
+              href="https://www.indiacode.nic.in/handle/123456789/1999"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-sm border border-slate-200 hover:bg-slate-50 flex items-center justify-between text-navy-900 font-medium hover:text-blue-700 transition-colors"
+            >
+              <span>• Information Technology Act, 2000 (Section 43A and 66E)</span>
+              <ExternalLink className="w-3 h-3 text-slate-400 shrink-0 ml-1" />
+            </a>
+            <a
+              href="https://cors.surveyofindia.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-sm border border-slate-200 hover:bg-slate-50 flex items-center justify-between text-navy-900 font-medium hover:text-blue-700 transition-colors"
+            >
+              <span>• Survey of India CORS GNSS Network Positional Ground Control</span>
+              <ExternalLink className="w-3 h-3 text-slate-400 shrink-0 ml-1" />
+            </a>
+            <a
+              href="https://dilrmp.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-sm border border-slate-200 hover:bg-slate-50 flex items-center justify-between text-navy-900 font-medium hover:text-blue-700 transition-colors"
+            >
+              <span>• Digital India Land Records Modernization Programme (DILRMP)</span>
+              <ExternalLink className="w-3 h-3 text-slate-400 shrink-0 ml-1" />
+            </a>
+          </div>
         </section>
       </article>
     </div>

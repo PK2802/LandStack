@@ -8,12 +8,15 @@ export interface RoRDetails {
   ownerName: string;
   fatherOrSpouseName: string;
   sharePercentage: number;
+  khewatNo?: string;
   khatauniOrPattaNo: string;
   mutationSerialNo: string;
   mutationSanctionDate: string;
   deedRegistrationDate: string;
   sroOffice: string;
   jamabandiOrFasliYear: string;
+  fmbSheetNo?: string;
+  landRevenueTaxINR?: number;
   disputeFlag: boolean;
   disputeDetails?: string;
   courtCaseRef?: string;
@@ -67,7 +70,7 @@ export interface Parcel {
   centroid: [number, number];
   polygon: [number, number][];
   titleStatus: TitleStatus;
-  landClassification: 'Urban Commercial' | 'Urban Residential' | 'Rural Agricultural (Wet)' | 'Rural Agricultural (Dry)' | 'Government Institutional';
+  landClassification: 'Urban Commercial' | 'Urban Residential' | 'Rural Agricultural (Wet)' | 'Rural Agricultural (Dry)' | 'Government Institutional' | 'Industrial Zone' | 'Grama Natham (Habitation)';
   ror: RoRDetails;
   encumbrance: EncumbranceDetails;
   zoning: ZoningDetails;
@@ -94,4 +97,17 @@ export interface LayerState {
   powerlineEasement: boolean;
   masterPlanZoning: boolean;
   satelliteFootprintComparison: boolean;
+  soiCorsGrid: boolean;
+  bhunakshaGrid: boolean;
+  bhuvanLULC: boolean;
 }
+
+export interface LandmarkPoint {
+  id: string;
+  name: string;
+  category: 'Government / SRO' | 'Transit / Commercial' | 'Cadastral / Geodetic' | 'Ecology / Water';
+  pilot?: PilotRegion;
+  coords: [number, number];
+  description: string;
+}
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Globe, Copy, Check } from 'lucide-react';
+import { X, Globe, Copy, Check, ExternalLink } from 'lucide-react';
 
 interface CustomDomainModalProps {
   isOpen: boolean;
@@ -120,9 +120,20 @@ export const CustomDomainModal: React.FC<CustomDomainModalProps> = ({ isOpen, on
 
             {/* Option 1: Vercel */}
             <div className="p-3 bg-slate-50 border border-slate-200 rounded-sm space-y-1">
-              <div className="font-semibold text-navy-900 flex items-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-navy-800 mr-1.5"></span>
-                Option A: Direct Vercel / Cloudflare Deployment
+              <div className="font-semibold text-navy-900 flex items-center justify-between">
+                <span className="flex items-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-navy-800 mr-1.5"></span>
+                  Option A: Direct Vercel / Cloudflare Deployment
+                </span>
+                <a
+                  href="https://vercel.com/docs/projects/domains"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-700 hover:underline flex items-center space-x-1 text-[10px]"
+                >
+                  <span>Vercel DNS Docs</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
               </div>
               <p className="text-[11px] text-slate-600">
                 1. Navigate to <strong>Project Settings → Domains</strong> in your Vercel or Cloudflare Pages dashboard.<br/>
@@ -134,9 +145,20 @@ export const CustomDomainModal: React.FC<CustomDomainModalProps> = ({ isOpen, on
 
             {/* Option 2: NGINX / Sovereign Datacenter */}
             <div className="p-3 bg-slate-50 border border-slate-200 rounded-sm space-y-1">
-              <div className="font-semibold text-navy-900 flex items-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-navy-800 mr-1.5"></span>
-                Option B: National Informatics Centre (NIC) / NGINX Server
+              <div className="font-semibold text-navy-900 flex items-center justify-between">
+                <span className="flex items-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-navy-800 mr-1.5"></span>
+                  Option B: National Informatics Centre (NIC) / Sovereign Cloud
+                </span>
+                <a
+                  href="https://cloud.nic.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-700 hover:underline flex items-center space-x-1 text-[10px]"
+                >
+                  <span>NIC MeghRaj Cloud</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
               </div>
               <p className="text-[11px] text-slate-600 font-mono bg-white p-2 border border-slate-200 rounded-xs mt-1">
 {`server {
