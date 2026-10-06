@@ -1,5 +1,10 @@
 # Bhu-Setu: National Land Stack Infrastructure (DPI Pilot)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-land--stack--rho.vercel.app-2563EB?style=for-the-badge&logo=vercel&logoColor=white)](https://land-stack-rho.vercel.app)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20with-Vercel-black?style=for-the-badge&logo=vercel)](https://land-stack-rho.vercel.app)
+
+🌐 **Live Demo:** [https://land-stack-rho.vercel.app](https://land-stack-rho.vercel.app)
+
 > **Department of Land Resources (DoLR), Ministry of Rural Development, Government of India**  
 > Unified Geospatial Land Administration Engine linking Cadastral Map Polygons, Record of Rights (RoR), Sub-Registrar Office Deeds, Bank Mortgages, Master Plan Zoning, and Utility Restrictions via a common 14-digit **ULPIN** (Unique Land Parcel Identification Number / Bhu-Aadhaar).
 
